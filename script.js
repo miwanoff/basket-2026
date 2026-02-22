@@ -13,12 +13,21 @@ function getCartData() {
 }
 
 function addToCart(event) {
-  let button = event.target;
+  const button = event.target;
   let cartData = getCartData() || {};
   let itemID = button.getAttribute("data-id");
   const parentBox = button.parentNode;
   const itemTitle = parentBox.querySelector(".item_title").innerHTML;
-  console.log("click " + itemID + itemTitle);
+  const itemPrice = parentBox.querySelector(".item_price").innerHTML;
+  //   console.log("click " + itemID + " " + itemTitle + " " + itemPrice);
+  if (cartData.hasOwnProperty(itemID)) {
+    cartData[itemID][2] += 1;
+  } else {
+    cartData[itemID] = [itemTitle, itemPrice, 1];
+  }
+
+  console.log(cartData);
+  setCartData(cartData)
 }
 
 for (let i = 0; i < itemBoxes.length; i++) {
